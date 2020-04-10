@@ -22,13 +22,19 @@ const persistedReducer = persistReducer(
 )
 
 const store = createStore(
+  rootReducer,
+  applyMiddleware(ReduxThunk, logger)
+)
+
+const storeWithPersist = createStore(
   persistedReducer,
   applyMiddleware(ReduxThunk, logger)
 )
 
-const persistor = persistStore(store)
+const persistor = persistStore(storeWithPersist)
 
 export {
   store,
+  storeWithPersist,
   persistor,
 }
