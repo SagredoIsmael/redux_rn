@@ -114,7 +114,7 @@ const examplePersist = {
     {
       name: 'lastSession',
       expireSeconds: 54000,
-      expiredState: {} //initialState,
+      expiredState: {}, //initialState
       autoExpire: true
     }
   ]
