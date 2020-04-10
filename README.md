@@ -92,7 +92,8 @@ const exampleReducer = (state = {}, action) => {
 }
 
 const App = () => (
-  <ReduxWrapper App={YouFirstComponentInApp}
+  <ReduxWrapper 
+   App={YouFirstComponentInApp}
    reducers= {{exampleReducer}}
   />
 )
@@ -128,7 +129,7 @@ const exampleReducer = (state = {}, action) => {
 
 const App = () => (
   <ReduxWrapper 
-   appComponent={YouFirstComponentInApp}
+   App={YouFirstComponentInApp}
    reducers= {{exampleReducer}}
    settingsPersist={examplePersist}
   />
@@ -142,7 +143,7 @@ const App = () => (
 
 | Prop                   | Type                | Mandatory | Note                                             |
 | ---------------------- | ------------------- | ------- | ------------------------------------------------ |
-| `appComponent`     | `react component`            |   YES      | Specify a react component for initialize your App |
+| `App`     | `react component`            |   YES      | Specify a react component for initialize your App |
 | `reducers`                | `object`            |    NO     | Specify all reducers you want into combineReducers
 | `settingsPersist`          | `object`            |    NO     | Specify all persist config (whiteList, blackList && expired. **If you don't want time expired, is not necessary this props)    |
 
