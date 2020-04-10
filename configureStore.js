@@ -5,17 +5,18 @@ import ReduxThunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
 import rootReducer from './reducers'
 import expireReducer from 'redux-persist-expire'
+import { combineReducers } from 'redux'
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage
 }
 
-const persistedReducer = (settingsPersist) => {
-  const transforms = settingsPersist.expired.map( expireItem =>
+const persistedReducer = (reducers, settingsPersist) => {
+  const transforms = settingsPersist.expired.map(expireItem =>
     expireReducer(expireItem.name, {
-    ...expireItem
-  }))
+      ...expireItem
+    }))
 
   return persistReducer(
     {
@@ -23,22 +24,28 @@ const persistedReducer = (settingsPersist) => {
       settingsPersist,
       transforms: transforms
     },
-    rootReducer
+    reducers ? combineReducers(
+      reducers
+    ) : rootReducer
   )
 }
 
-const store = createStore(
-  rootReducer,
-  applyMiddleware(ReduxThunk, logger)
-)
+const store = reducers => {
+  return createStore(
+    reducers ? combineReducers(
+      reducers
+    ) : rootReducer,
+    applyMiddleware(ReduxThunk, logger)
+  )
+}
 
-const storeWithPersist = (settingsPersist) =>
+const storeWithPersist = (reducers, settingsPersist) =>
   createStore(
-    persistedReducer(settingsPersist),
+    persistedReducer(reducers, settingsPersist),
     applyMiddleware(ReduxThunk, logger)
   )
 
-const persistor = (settingsPersist) => persistStore(storeWithPersist(settingsPersist))
+const persistor = (reducers, settingsPersist) => persistStore(storeWithPersist(reducers, settingsPersist))
 
 export {
   store,
