@@ -1,6 +1,6 @@
 {
     "name": "@sagredoismael/redux_rn",
-    "version": "1.0.14",
+    "version": "1.0.15",
     "description": "Basic redux implementation with persist data for react native projects",
     "license": "MIT",
     "repository": "SagredoIsmael/redux_rn",
